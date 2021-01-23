@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {TextField, Button, Paper} from '@material-ui/core';
 import FileBase from 'react-file-base64';
 import './Form.css';
-import {useDispatch} from 'react-redux';
-import { createPost } from '../../actions/posts';
+import {useDispatch, useSelector} from 'react-redux';
+import { createPost, updatePost } from '../../actions/posts';
 
-function Form(props) {
+function Form({currentId, setCurrentId}) {
     const [postData, setPostData] = useState({
         creator: '',
         title: '',
@@ -13,20 +13,40 @@ function Form(props) {
         tags: '',
         selectedFile: ''
     });
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
+    const post = useSelector((state) => currentId ? state.posts.find((pst) => pst._id === currentId) : null);
+
+    useEffect(() => {
+        // populate form while updating
+        if (post) {
+            setPostData(post);
+        }
+    }, [post])
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
-        dispatch(createPost(postData))
+        console.log(currentId)
+        if (currentId) {
+            dispatch(updatePost(currentId, postData))  // if we have id then we are updating post
+        } else {
+            dispatch(createPost(postData))  // else we are creating post
+        }
+        clear();
     }
 
     const clear = () => {
-        
+        setCurrentId(null);
+        setPostData({
+            creator: '',
+            title: '',
+            message: '',
+            tags: '',
+            selectedFile: ''
+        })
     }
     return (
         <Paper className="form__paper">
-            <h4 className="form__heading">Creating Memory</h4>
+            <h4 className="form__heading">{currentId ? 'Editing' : 'Creating'} Memory</h4>
             <form autoComplete="off" noValidate  onSubmit={handleSubmit}>
                 <TextField 
                     name="creator" 

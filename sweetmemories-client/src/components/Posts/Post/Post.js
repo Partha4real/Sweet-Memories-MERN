@@ -6,7 +6,7 @@ import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import DeleteIcon from '@material-ui/icons/Delete';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 
-function Post({post}) {
+function Post({post, setCurrentId}) {
     return (
         <Card className="card">
             <CardMedia className="card__media" image={post.selectedFile} title={post.title} />
@@ -15,7 +15,7 @@ function Post({post}) {
                 <Typography variant="body1">{moment(post.createdAt).fromNow()}</Typography>
             </div>
             <div className="card__overlay2">
-                <Button style={{color: 'white'}} size="small" onClick={()=> {}}>
+                <Button style={{color: 'white'}} size="small" onClick={()=> setCurrentId(post._id)}>
                     <MoreHorizIcon fontSize="default" />
                 </Button>
             </div>
@@ -23,7 +23,8 @@ function Post({post}) {
                 <Typography variant="body2" color="textSecondary">{post.tags.map((tag) => `#${tag} `)}</Typography>
             </div>
             <CardContent>
-                <Typography className="card__message" variant="h6" gutterBottom>{post.message}</Typography>
+                <Typography className="card__message" variant="h6" gutterBottom>{post.title}</Typography>
+                <Typography className="card__message" variant="h7" gutterBottom>{post.message}</Typography>
             </CardContent>
             <CardActions className="card__Actions">
                 <Button size="small" color="primary" onClick={()=> {}}>
