@@ -1,5 +1,5 @@
 import './App.css';
-import {Container, AppBar, Typography, Grow, Grid} from '@material-ui/core';
+import {Container, AppBar, Grow, Grid} from '@material-ui/core';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import Posts from './components/Posts/Posts';
 import Form from './components/Form/Form';
@@ -15,16 +15,16 @@ function App() {
   useEffect(() => {
     dispatch(getPosts());
   }, [dispatch]);
-  
+
   return (
     <div className="app">
       <Container maxWidth="lg">
         <AppBar className="app__appbar" position="static" color="inherit">
           {/* <Typography className="app__appbarHeading" align="center" variant="h2">Memories</Typography> */}
           <div className="app__logocontainer">
-            <MoreHorizIcon fontSize="medium" />
+            <MoreHorizIcon />
             <img className="app__appbarLogo" src={memories} alt="memories" /> 
-            <MoreHorizIcon fontSize="medium" />
+            <MoreHorizIcon />
           </div>
         </AppBar>
         <Grow in>

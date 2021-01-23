@@ -5,9 +5,11 @@ import App from './App';
 import {Provider} from 'react-redux';
 import {configureStore} from './Store';
 
+const store = configureStore();
+
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={configureStore} >
+    <Provider store={store} >
       <App />
     </Provider>
   </React.StrictMode>,
