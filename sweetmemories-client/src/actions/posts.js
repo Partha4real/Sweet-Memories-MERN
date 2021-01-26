@@ -1,4 +1,4 @@
-import {FETCH_ALL, CREATE_POST, UPDATE_POST} from './actionTypes';
+import {FETCH_ALL, CREATE_POST, UPDATE_POST, DELETE_POST, LIKE_POST} from './actionTypes';
 import * as api from '../api';
 
 export const getPosts= () => async (dispatch) => {
@@ -17,6 +17,7 @@ export function fetchall(data) {
     }
 }
 
+// ----------------------------------------------------------------------------------------------------
 export const createPost= (post) => async (dispatch) => {
     try {
         const {data} = await api.createPost(post); // from reaponse we extract data
@@ -33,6 +34,8 @@ export function creatingPost(data) {
     }
 }
 
+// ----------------------------------------------------------------------------------------------------
+
 export const updatePost = (id, post) => async (dispatch) => {
     try {
         console.log(post);
@@ -48,6 +51,44 @@ export const updatePost = (id, post) => async (dispatch) => {
 export function updatingPost(data) {
     return {
         type: UPDATE_POST,
+        data
+    }
+}
+
+// ----------------------------------------------------------------------------------------------------
+
+export const deletePost = (id) => async (dispatch) => {
+    try {
+        await api.deletepost(id);
+
+        dispatch(deletingPost(id))
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export function deletingPost(id) {
+    return {
+        type: DELETE_POST,
+        id
+    }
+}
+
+// ----------------------------------------------------------------------------------------------------
+
+export const likePost = (id) => async (dispatch) => {
+    try {
+        const {data} = await api.likePost(id);
+
+        dispatch(likingPost(data))
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export function likingPost(data) {
+    return {
+        type: LIKE_POST,
         data
     }
 }

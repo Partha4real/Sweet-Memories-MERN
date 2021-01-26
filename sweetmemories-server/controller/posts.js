@@ -9,7 +9,7 @@ export const getPosts = async (req, res) => {
             res.status(200).json(posts);
         }
     } catch (error) {
-        res.status(404).json({message: error.message});
+        res.status(404).json({message: error});
     }
 }
 
@@ -21,7 +21,7 @@ export const createPost = async (req, res) => {
         newPost.save();
         res.status(201).json(newPost);
     } catch (error) {
-        res.status(409).json({message: error.message});
+        res.status(409).json({message: error});
     }
 }
 
@@ -36,6 +36,35 @@ export const updatePost = async (req, res) => {
         const updatedPost = await PostMessage.findByIdAndUpdate(_id, {...post, _id}, {new: true})
         res.json(updatedPost);
     } catch (error) {
-        console.log(error)
+        console.log(error);
+    }
+}
+
+export const deletepost = async (req, res) => {
+    const {id} = req.params;
+    try {
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(404).send('No post with that Id')
+        }
+        await PostMessage.findByIdAndDelete(id);
+        res.json({message: "Pos deleted Succeddfully"});
+    } catch (error) {
+        console.log(error);
+    }
+} 
+
+export const likepost = async (req, res) => {
+    const {id} = req.params;
+
+    try {
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(404).send('No post with that Id')
+        }
+
+        const post = await PostMessage.findById(id);
+        const updatedPost = await PostMessage.findByIdAndUpdate(id, {likeCount: post.likeCount + 1 }, {new: true})
+        res.json(updatedPost);
+    } catch (error) {
+        console.log(error);
     }
 }
