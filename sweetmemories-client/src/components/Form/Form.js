@@ -95,7 +95,6 @@ function Form({currentId, setCurrentId}) {
                     <FileBase
                         type="file"
                         multiple={false}
-                        value={postData.selectedFile}
                         onDone={({base64}) => setPostData({...postData, selectedFile: base64})}
                     />
                 {/* </div> */}
