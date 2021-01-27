@@ -32,13 +32,13 @@ function Post({post, setCurrentId}) {
                 <Typography className="card__message" color="textSecondary" component="p" variant="body2" gutterBottom>{post.message}</Typography>
             </CardContent>
             <CardActions className="card__Actions">
-                <Button size="small" color="primary" onClick={()=> dispatch(likePost(post._id))}>
-                    <ThumbUpAltIcon fontSize="small" />
+                <Button size="small"  onClick={()=> dispatch(likePost(post._id))}>
+                    <ThumbUpAltIcon color="primary" fontSize="small" />
                     &nbsp; Like &nbsp;
                     {post.likeCount}
                 </Button>
-                <Button size="small" color="primary" onClick={()=> dispatch(deletePost(post._id))}>
-                    <DeleteIcon fontSize="small" />
+                <Button size="small"  onClick={()=> dispatch(deletePost(post._id))}>
+                    <DeleteIcon color="secondary" fontSize="small" />
                     &nbsp; Delete
                 </Button>
             </CardActions>

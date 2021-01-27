@@ -1,0 +1,28 @@
+.navbar{
+    border-radius: 15px !important;
+    margin: 30px 0;
+    display: flex !important;
+    flex-direction: row !important;
+}
+
+.navbar__logocontainer {
+    flex: 1;
+}
+
+.navbar__appbarLogo {
+    height: 50px;
+    margin: 5px;
+    padding: 5px;
+}
+
+.navbar__toolbarProfile {
+    display: flex;
+    justify-content: space-between;
+}
+/* .MuiSvgIcon-root {
+    color: grey;
+} */
+
+a {
+    text-decoration: none !important;
+}
