@@ -6,7 +6,5 @@ export const DELETE_POST = 'DELETE_POST';
 export const LIKE_POST = 'LIKE_POST';
 
 
-export const Auth_GOOGLE = "Auth_GOOGLE";
-export const SIGNIN = "SIGNIN";
-export const SIGNUP = "SIGNUP";
+export const AUTH = "AUTH";
 export const LOGOUT = "LOGOUT";

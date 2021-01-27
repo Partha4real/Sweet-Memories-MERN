@@ -42,7 +42,7 @@ function Auth(props) {
 
     const switchMode = () => {
         setIsSignup((prevIsSignUp) => !prevIsSignUp);
-        handleShowPassword(false);
+        setShowPassword(false);
     }
 
     const googleSuccess = (response) => {
@@ -86,6 +86,11 @@ function Auth(props) {
                             )
                         }
                     </Grid>
+                    
+                    <Button type="submit" fullWidth variant="contained" color="primary" className="auth__formbutton">
+                        {isSignUp ? 'Sign Up' : 'Sign In'}
+                    </Button>
+
                     <GoogleLogin 
                         clientId="604528269560-c4770i5dsb8c4vjuvseebm8ln5jsirqu.apps.googleusercontent.com"
                         render={(renderProps) => (
@@ -105,9 +110,6 @@ function Auth(props) {
                         onFailure={googleFailure}
                         cookiePolicy="single_host_origin"
                      />
-                    <Button type="submit" fullWidth variant="contained" color="primary" className="auth__formbutton">
-                    {isSignUp ? 'Sign Up' : 'Sign In'}
-                    </Button>
                 </form>
                 <Grid container justify="flex-end">
                     <Grid item>

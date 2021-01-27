@@ -1,13 +1,22 @@
 import axios from 'axios';
 
-const API_ROOT = 'http://localhost:5000'
-const APIUrls = {
-    fetchPostsURL: `${API_ROOT}/posts/getposts`,
-    createPostsURL: `${API_ROOT}/posts/createpost`,
-    updatePostURL: `${API_ROOT}/posts/updatepost`,
-    deletePostURL: `${API_ROOT}/posts/deletepost`,
-    likePostURL: `${API_ROOT}/posts/likepost`,
-}
+const API = axios.create({baseURL: 'http://localhost:5000'});
+
+API.interceptors.request.use((req) => {
+    
+})
+
+// const APIUrls = {
+//     signinURL: `${API_ROOT}/user/signin`,
+//     signupURL: `${API_ROOT}/user/signup`,
+
+//     fetchPostsURL: `${API_ROOT}/posts/getposts`,
+//     createPostsURL: `${API_ROOT}/posts/createpost`,
+//     updatePostURL: `${API_ROOT}/posts/updatepost`,
+//     deletePostURL: `${API_ROOT}/posts/deletepost`,
+//     likePostURL: `${API_ROOT}/posts/likepost`,
+
+// }
 
 // const APIUrls = {
 //     fetchPostsURL: () => "http://localhost:5000/posts/getposts",
@@ -15,8 +24,11 @@ const APIUrls = {
 //     updatePostURL: () => "http://localhost:5000/posts/updatepost/",
 // }
 
-export const fetchPosts = () => axios.get(APIUrls.fetchPostsURL);
-export const createPost = (newPost) => axios.post(APIUrls.createPostsURL, newPost);
-export const updatePost = (id, updatedPost) => axios.post(`${APIUrls.updatePostURL}/${id}`, updatedPost);
-export const deletepost = (id) => axios.delete(`${APIUrls.deletePostURL}/${id}`);
-export const likePost = (id) => axios.post(`${APIUrls.likePostURL}/${id}`)
+export const signIn = (formData) => API.post('/user/signin', formData);
+export const signUp = (formData) => API.post('/user/signup', formData);
+
+export const fetchPosts = () => API.get('/posts/getposts');
+export const createPost = (newPost) => API.post('/posts/createpost', newPost);
+export const updatePost = (id, updatedPost) => API.post(`/posts/updatepost/${id}`, updatedPost);
+export const deletepost = (id) => API.delete(`/posts/deletepost/${id}`);
+export const likePost = (id) => API.post(`/posts/likepost/${id}`);
