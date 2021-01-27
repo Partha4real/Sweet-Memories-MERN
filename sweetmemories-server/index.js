@@ -4,6 +4,7 @@ import morgan from 'morgan';
 import dotenv from 'dotenv';
 import path from 'path';
 import connectDB from './config/db.js';
+import userRoutes from './routes/users.js';
 import postRoutes from './routes/posts.js';
 
 // express init
@@ -26,6 +27,7 @@ app.use(morgan('dev'));
 app.use(cors());
 
 // routes
+app.use('/user', userRoutes);
 app.use('/posts', postRoutes);
 
 // post

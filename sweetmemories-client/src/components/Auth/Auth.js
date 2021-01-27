@@ -6,21 +6,36 @@ import {GoogleLogin} from 'react-google-login';
 import Input from './Input';
 import Icon from './icon';
 import { useDispatch } from 'react-redux';
-import { googleLogin } from '../../actions/auth';
+import { googleLogin, signin, signup } from '../../actions/auth';
 import { useHistory } from 'react-router-dom';
+
+const initialState = {
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    confirmPassword: ''
+}
 
 function Auth(props) {
     const [isSignUp, setIsSignup]= useState(false);
     const [showPassword, setShowPassword] = useState(false);
+    const [formData, setFormData] = useState(initialState)
     const dispatch = useDispatch();
     const history = useHistory();
 
-    const handleSubmit = () => {
-
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        
+        if (isSignUp) {
+            dispatch(signup(formData, history))
+        } else {
+            dispatch(signin(formData, history))
+        }
     };
 
-    const handleChange = () => {
-
+    const handleChange = (e) => {
+        setFormData({...formData, [e.target.name]: e.target.value})
     }
 
     const handleShowPassword = () => setShowPassword((prevShowPassword) => !prevShowPassword);
