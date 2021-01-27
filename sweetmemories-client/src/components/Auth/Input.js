@@ -15,15 +15,15 @@ function Input({name, handleChange, label, half, autoFocus, type, handleShowPass
                 label={label}
                 autoFocus={autoFocus}
                 type={type}
-                InputProps={name === 'password' && {
+                InputProps={name === 'password' ? {
                     endAdornment: (
                         <InputAdornment position= "end">
                             <IconButton onClick={handleShowPassword}>
                                 {type === 'password' ? <VisibilityIcon /> : <VisibilityOffIcon />}
                             </IconButton>
                         </InputAdornment>
-                    )
-                }}
+                    ),
+                } : null}
             />
         </Grid>
     );

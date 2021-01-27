@@ -18,11 +18,34 @@
 .navbar__toolbarProfile {
     display: flex;
     justify-content: space-between;
+    place-items: center;
+    width: 300px;
 }
+
+.navbar__toolbarProfile > button {
+   
+    width: 80px!important;
+    padding: 10px;
+}
+
 /* .MuiSvgIcon-root {
     color: grey;
 } */
 
 a {
     text-decoration: none !important;
+}
+
+@media screen and (max-width: 850px) {
+    .navbar{
+        display: flex !important;
+        flex-direction: column!important;
+        justify-content: space-between;
+        place-items: center;
+    }
+    .navbar__toolbarProfile {
+        display: flex;
+        flex-direction: column!important;
+        width: 300px;
+    }
 }

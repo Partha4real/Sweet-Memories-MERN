@@ -1,13 +1,19 @@
 import React, { useState } from 'react';
 import './Auth.css';
-import {Avatar, Button, Paper, Grid, Typography, Container, TextField, Icon} from '@material-ui/core';
+import {Avatar, Button, Paper, Grid, Typography, Container, TextField} from '@material-ui/core';
 import LockOpenOutlinedIcon from '@material-ui/icons/LockOpenOutlined';
 import {GoogleLogin} from 'react-google-login';
 import Input from './Input';
+import Icon from './icon';
+import { useDispatch } from 'react-redux';
+import { googleLogin } from '../../actions/auth';
+import { useHistory } from 'react-router-dom';
 
 function Auth(props) {
     const [isSignUp, setIsSignup]= useState(false);
     const [showPassword, setShowPassword] = useState(false);
+    const dispatch = useDispatch();
+    const history = useHistory();
 
     const handleSubmit = () => {
 
@@ -22,6 +28,22 @@ function Auth(props) {
     const switchMode = () => {
         setIsSignup((prevIsSignUp) => !prevIsSignUp);
         handleShowPassword(false);
+    }
+
+    const googleSuccess = (response) => {
+        const result = response?.profileObj;
+        const token = response?.tokenId;
+
+        try {
+            dispatch(googleLogin(result, token));
+            history.push('/')
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const googleFailure = () => {
+        console.log('Google Sign In was Unsuccessful. Try Again Later');
     }
     
     return (
@@ -50,7 +72,7 @@ function Auth(props) {
                         }
                     </Grid>
                     <GoogleLogin 
-                        clientId=""
+                        clientId="604528269560-c4770i5dsb8c4vjuvseebm8ln5jsirqu.apps.googleusercontent.com"
                         render={(renderProps) => (
                             <Button 
                                 className="auth__googlebtn" 
@@ -64,6 +86,9 @@ function Auth(props) {
                                 Google Sign In
                             </Button>
                         )}
+                        onSuccess={googleSuccess}
+                        onFailure={googleFailure}
+                        cookiePolicy="single_host_origin"
                      />
                     <Button type="submit" fullWidth variant="contained" color="primary" className="auth__formbutton">
                     {isSignUp ? 'Sign Up' : 'Sign In'}
